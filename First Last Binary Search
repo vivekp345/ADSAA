@@ -1,0 +1,63 @@
+
+
+
+
+
+import java.util.*;
+
+public class BinarySearchOccurrences {
+    
+    public static int firstOccurrence(int[] arr, int key) {
+        int low = 0, high = arr.length - 1, first = -1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] == key) {
+                first = mid;
+                high = mid - 1; // Search in the left half
+            } else if (arr[mid] < key) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return first;
+    }
+    
+    public static int lastOccurrence(int[] arr, int key) {
+        int low = 0, high = arr.length - 1, last = -1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] == key) {
+                last = mid;
+                low = mid + 1; // Search in the right half
+            } else if (arr[mid] < key) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return last;
+    }
+    
+    public static void findOccurrences(int[] arr, int key) {
+        int first = firstOccurrence(arr, key);
+        int last = lastOccurrence(arr, key);
+        if (first == -1) {
+            System.out.println("-1 -1 0"); // Key not found
+        } else {
+            System.out.println(first + " " + last + " " + (last - first + 1));
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int N = scanner.nextInt();
+        int[] arr = new int[N];
+        for (int i = 0; i < N; i++) {
+            arr[i] = scanner.nextInt();
+        }
+        int key = scanner.nextInt();
+        scanner.close();
+        findOccurrences(arr, key);
+    }
+}
